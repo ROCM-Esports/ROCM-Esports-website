@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       <div>
         <div>
           <h1>
-            Roc Mondriaan Esports
+            ROCM Esports
           </h1>
           <div>
             {data ? <p>{data.greeting}</p> : <p>Loading...</p>}
