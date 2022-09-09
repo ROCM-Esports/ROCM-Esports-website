@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
 
@@ -21,9 +22,25 @@ const Home: NextPage = () => {
             {data ? <p>{data.greeting}</p> : <p>Loading...</p>}
           </div>
         </div>
+        <AuthComponent />
       </div>
     </>
   );
 };
+
+const AuthComponent = () => {
+  const { data: secretMessage } = trpc.useQuery(['auth.getSecretMessage'])
+  const { data: sessionData } = useSession()
+  
+  return (
+    <div>
+      {sessionData && <p>{sessionData.user?.name}</p>}
+      {secretMessage && <p>{secretMessage}</p>}
+      <button onClick={sessionData ? () => signOut() : () => signIn()}>
+          {sessionData ? "Sign Out" : "Sign In"}
+      </button>
+    </div>
+  )
+}
 
 export default Home;
