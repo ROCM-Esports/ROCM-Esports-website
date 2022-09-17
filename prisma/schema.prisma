@@ -25,12 +25,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? //@db.Text
-    access_token      String? //@db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? //@db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -45,12 +45,19 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+    ADMIN
+    USER
+}
+
 model User {
     id            String    @id @default(cuid())
     name          String?
     email         String?   @unique
+    password      String?
     emailVerified DateTime?
     image         String?
+    role          Role?     @default(USER)
     accounts      Account[]
     sessions      Session[]
 }
@@ -61,4 +68,18 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Team {
+    id      String   @id @default(cuid())
+    name    String
+    Players Player[]
+}
+
+model Player {
+    id     String  @id @default(cuid())
+    name   String
+    bio    String  @db.Text
+    Team   Team?   @relation(fields: [teamId], references: [id])
+    teamId String?
 }
