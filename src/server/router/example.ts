@@ -5,7 +5,7 @@ export const exampleRouter = createRouter()
   .query("hello", {
     input: z
       .object({
-        text: z.string().nullish(),
+        text: z.string().min(8),
       })
       .nullish(),
     resolve({ input }) {

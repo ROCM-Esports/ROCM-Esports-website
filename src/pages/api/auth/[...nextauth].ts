@@ -15,6 +15,12 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
+  },
+  pages: {
+    signIn: "/auth/signin",
   },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),

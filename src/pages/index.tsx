@@ -1,10 +1,18 @@
 import type { NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
-import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
-  const { data } = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
+  const { data: session } = useSession();
+  
+  if (!session) {
+    return (
+      <div>
+        <p>you are not logged in</p>
+        <button onClick={() => signIn()}>Sign In</button>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -18,29 +26,14 @@ const Home: NextPage = () => {
           <h1>
             ROCM Esports
           </h1>
-          <div>
-            {data ? <p>{data.greeting}</p> : <p>Loading...</p>}
-          </div>
+          <p>welcome { session.user?.name}</p>
+          <button onClick={() => signOut()}>Sign Out</button>
         </div>
-        <AuthComponent />
       </div>
     </>
   );
 };
 
-const AuthComponent = () => {
-  const { data: secretMessage } = trpc.useQuery(['auth.getSecretMessage'])
-  const { data: sessionData } = useSession()
-  
-  return (
-    <div>
-      {sessionData && <p>{sessionData.user?.name}</p>}
-      {secretMessage && <p>{secretMessage}</p>}
-      <button onClick={sessionData ? () => signOut() : () => signIn()}>
-          {sessionData ? "Sign Out" : "Sign In"}
-      </button>
-    </div>
-  )
-}
+
 
 export default Home;
