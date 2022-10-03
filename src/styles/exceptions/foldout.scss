@@ -1,0 +1,6 @@
+.foldout[data-state=open] {
+    animation: foldoutOpen 0.5s ease-in-out;
+}
+.foldout[data-state=close] {
+    animation: foldoutClose 0.5s ease-in-out;
+}
