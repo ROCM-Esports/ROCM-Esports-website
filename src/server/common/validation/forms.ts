@@ -25,3 +25,7 @@ export const SignUpSchema = z
     path: ["confirmPassword"],
   })
 // check if the passwords do not match
+export const loginSchema = z.object({
+    email: z.string().email(),
+    password: z.string(),
+});
