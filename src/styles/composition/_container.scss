@@ -1,4 +1,4 @@
 .container {
-  width: min(100% - 10rem, 1200px);
+  width: min(var(--width, 100%), var(--max-width, 75rem));
   margin: 0 auto;
 }
