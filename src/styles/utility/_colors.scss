@@ -1,0 +1,12 @@
+@use "../abstracts" as *;
+// loop over color type eg primary, secondary, tertiary etc and then loop over the color values eg 100, 300, 500, 700, 900 and make utility classes for each color using the custom properties
+@each $type, $colors in $colors {
+  @each $value, $color in $colors {
+    .text-#{$type}-#{$value} {
+      color: var(--clr-#{$type}-#{$value});
+    }
+    .bg-#{$type}-#{$value} {
+      background-color: var(--clr-#{$type}-#{$value});
+    }
+  }
+}

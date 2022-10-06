@@ -19,9 +19,9 @@ export const authOptions: NextAuthOptions = {
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
-  pages: {
-    signIn: "/auth/signin",
-  },
+  // pages: {
+  //   signIn: "/auth/signin",
+  // },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [

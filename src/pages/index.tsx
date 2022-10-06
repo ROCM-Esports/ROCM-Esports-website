@@ -1,4 +1,5 @@
 import { Foldout } from "@components/foldout"
+// import { Navbar } from "@components/Nav"
 import type { NextPage } from "next"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Head from "next/head"
@@ -24,7 +25,7 @@ const Home: NextPage = () => {
       </Head>
       <div>
         <div>
-          <h1>ROCM Esports</h1>
+          <h1 className="text-primary-500">ROCM Esports</h1>
           <Foldout>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
