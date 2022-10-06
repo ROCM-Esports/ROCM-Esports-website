@@ -1,0 +1,18 @@
+@use "../abstracts/" as *;
+
+.navigation-wrapper {
+  // hide the navigation off screen
+  position: relative;
+}
+.primary-navigation {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2rem;
+
+  @include mq(medium, max) {
+    display: block;
+  }
+}

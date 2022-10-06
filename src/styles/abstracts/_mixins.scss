@@ -1,7 +1,16 @@
-@mixin mq($breakpoint) {
+@use "./variables" as *;
+
+// add a parameter for min-width and max-width
+@mixin mq($breakpoint, $type: min or max) {
   @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
-      @content;
+    @if $type == min {
+      @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+      }
+    } @else if $type == max {
+      @media screen and (max-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+      }
     }
   } @else {
     @error "Unknown breakpoint: #{$breakpoint}";
