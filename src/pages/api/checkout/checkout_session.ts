@@ -1,9 +1,12 @@
+
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ApiError } from 'next/dist/server/api-utils';
 import Stripe from 'stripe';
 const stripe = new Stripe(<string>process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-08-01',
   typescript: true,
 });
+stripe.products.list().then((products) => console.log(products));
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -24,7 +27,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.redirect(303, <string>session.url);
     }
     catch (error) {
-      res.status(error.statusCode || 500).json({ statusCode: error.statusCode, message: error.message });
+      if (error instanceof ApiError) {
+        res.status(error.statusCode || 500).json({ error: error.message });
+      }
     }
   }
   else {
