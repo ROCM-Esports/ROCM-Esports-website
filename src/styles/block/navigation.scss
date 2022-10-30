@@ -1,18 +1,21 @@
 @use "../abstracts/" as *;
-
-.navigation-wrapper {
-  // hide the navigation off screen
-  position: relative;
+body {
+  margin: 0;
+  padding: 0 !important;
 }
+
 .primary-navigation {
   display: flex;
+  justify-content: space-between;
 }
 
 .nav-list {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
+}
 
-  @include mq(medium, max) {
-    display: block;
-  }
+.navigation-wrapper{
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 90%;
 }

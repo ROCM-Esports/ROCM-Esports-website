@@ -1,0 +1,7 @@
+.account-dropdown{
+  display: none;
+}
+
+.account-dropdown[data-open="true"]{
+  display: block;
+}

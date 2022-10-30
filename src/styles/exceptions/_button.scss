@@ -1,0 +1,31 @@
+@use '../abstracts/' as *;
+
+.btn {
+  border-radius: 0.4em;
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: none;
+}
+[data-button-type="primary"] {
+  background-color: var(--clr-primary-300);
+  color: var(--clr-primary-100);
+}
+[data-button-type="secondary"] {
+  background-color: var(--clr-primary-500);
+  color: var(--clr-primary-100);
+}
+[data-button-type="navigation"] {
+  appearance: none;
+  background-color: transparent;
+  display: none;
+  @include mq(medium, max) {
+    z-index: 9999;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
