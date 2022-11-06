@@ -1,25 +1,61 @@
-// trpc endpoint for stripe products
-
-import { z } from "zod";
-import { createRouter } from "../context";
+import { z } from "zod"
+import { createRouter } from "../context"
 
 const productsRouter = createRouter()
   .query("getAllProducts", {
-  resolve: async ({ ctx }) => {
-    const products = await ctx.stripe.products.list();
-    return products.data;
-  }
-  }).query("getProductById", {
+    resolve: async ({ ctx }) => {
+      const products = await ctx.stripe.products.list()
+      return products.data
+    },
+  })
+  .query("getProductById", {
     input: z.object({
       id: z.string(),
     }),
     resolve: async ({ ctx, input }) => {
-      const {id} = input;
-      const product = await ctx.stripe.products.retrieve(id);
-      return product;
-    }
-  });
-
-
-
-export default productsRouter;
+      const { id } = input
+      const product = await ctx.stripe.products.retrieve(id)
+      return product
+    },
+  })
+  .query("getProductsByName", {
+    input: z.object({
+      name: z.string(),
+    }),
+    resolve: async ({ ctx, input }) => {
+      const { name } = input
+      const products = await ctx.stripe.products.search({ query: name })
+      return products.data
+    },
+  })
+  // a mutation that creates 100 products in Stripe with random names and prices between $1 and $100
+  .mutation("createProducts", {
+    input: z.object({
+      count: z.number().min(1).max(100),
+    }),
+    resolve: async ({ ctx, input }) => {
+      const { count } = input
+      const products = []
+      for (let i = 0; i < count; i++) {
+        const product = await ctx.stripe.products.create({
+          name: `product ${Math.random().toString(36).substring(2, 15)}`,
+          description: "A product",
+          images: ["https://picsum.photos/200"],
+          active: true,
+          attributes: ["size", "color"],
+          metadata: {
+            color: "blue",
+            size: "large",
+          },
+        })
+        const price = await ctx.stripe.prices.create({
+          product: product.id,
+          unit_amount: Math.floor(Math.random() * 10000),
+          currency: "eur",
+        })
+        products.push({ product, price })
+      }
+      return products
+    },
+  })
+export default productsRouter

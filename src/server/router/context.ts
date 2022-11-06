@@ -4,9 +4,11 @@ import * as trpcNext from "@trpc/server/adapters/next";
 import { Session } from "next-auth";
 import { getServerAuthSession } from "../../server/common/get-server-auth-session";
 import { prisma } from "../db/client";
+import { Stripe } from "stripe";
 
 type CreateContextOptions = {
   session: Session | null;
+  stripe: Stripe;
 };
 
 /** Use this helper for:
@@ -17,6 +19,7 @@ export const createContextInner = async (opts: CreateContextOptions) => {
   return {
     session: opts.session,
     prisma,
+    stripe: opts.stripe,
   };
 };
 
@@ -34,6 +37,10 @@ export const createContext = async (
 
   return await createContextInner({
     session,
+    stripe: new Stripe(<string>process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2022-08-01',
+      typescript: true,
+    }),
   });
 };
 
