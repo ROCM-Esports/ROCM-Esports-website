@@ -6,9 +6,14 @@ const stripe = new Stripe(<string>process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-08-01',
   typescript: true,
 });
-stripe.products.list().then((products) => console.log(products));
+
+interface formData{
+  product_id: string;
+  quantity: number;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  
   if (req.method === 'POST') {
     try {
       const session = await stripe.checkout.sessions.create({
