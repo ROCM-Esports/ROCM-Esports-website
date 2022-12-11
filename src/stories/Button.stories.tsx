@@ -1,41 +1,62 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+// create a story for the button component
+import { ComponentMeta, ComponentStory } from "@storybook/react"
+import React from "react"
+import { Button } from "../components/Button"
 
-import { Button } from './Button';
-
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Button',
+  title: "Button",
   component: Button,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' },
+    button_type: {
+      control: {
+        type: "select",
+        options: ["primary", "secondary", "navigation", "cta"],
+      },
+    },
+    color: {
+      control: {
+        type: "color",
+      },
+    },
   },
-} as ComponentMeta<typeof Button>;
+} as ComponentMeta<typeof Button>
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
-
-export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+export const Primary = Template.bind({})
 Primary.args = {
-  primary: true,
-  label: 'Button',
-};
+  button_type: "primary",
+  children: "Primary Button",
+}
 
-export const Secondary = Template.bind({});
+export const Secondary = Template.bind({})
 Secondary.args = {
-  label: 'Button',
-};
+  button_type: "secondary",
+  children: "Secondary Button",
+}
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
-};
+export const Navigation = Template.bind({})
+Navigation.args = {
+  button_type: "navigation",
+  children: (
+    <svg viewBox="0 0 100 80" width="40" height="40">
+      <rect width="100" height="20" rx="8"></rect>
+      <rect y="30" width="100" height="20" rx="8"></rect>
+      <rect y="60" width="100" height="20" rx="8"></rect>
+    </svg>
+  ),
+}
+export const EVENT = Template.bind({})
+EVENT.args = {
+  button_type: "primary",
+  children: "event",
+  onClick: () => {
+    alert("event")
+  }
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
-};
+}
+
+export const CTA = Template.bind({})
+CTA.args = {
+  button_type: "cta",
+  children: "CTA Button",
+}

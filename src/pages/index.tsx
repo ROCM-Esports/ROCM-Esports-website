@@ -1,4 +1,5 @@
 import { Foldout } from "@components/foldout"
+import { trpc } from "@utils/trpc"
 // import { Navbar } from "@components/Nav"
 import type { NextPage } from "next"
 import { signIn, signOut, useSession } from "next-auth/react"
@@ -6,6 +7,9 @@ import Head from "next/head"
 
 const Home: NextPage = () => {
   const { data: session } = useSession()
+  const products = trpc.useQuery(["products.getAllProducts"])
+  console.log(products);
+  
 
   if (!session) {
     return (
@@ -55,7 +59,6 @@ const Home: NextPage = () => {
               eaque.
             </p>
           </Foldout>
-          <p>welcome {session.user?.name}</p>
           <button onClick={() => signOut()}>Sign Out</button>
         </div>
       </div>

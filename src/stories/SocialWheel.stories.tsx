@@ -1,7 +1,21 @@
-// components/layout.js
-import SocialWheel from "@components/footer/socialWheel"
-import Navigation from "@components/navigation/Navigation"
-import React from "react"
+import React from 'react';
+import { ComponentMeta, ComponentStory } from "@storybook/react"
+
+import SocialWheel from "../components/footer/socialWheel";
+import Link from "next/link";
+
+export default {
+  title: 'Components/SocialWheel',
+  component: SocialWheel,
+  argTypes: {
+    socials: {
+      control: {
+        type: "object",
+      },
+    },
+  },
+} as ComponentMeta<typeof SocialWheel>;
+
 
 const socials = [
   {
@@ -42,13 +56,5 @@ const socials = [
   },
 ];
 
-export const Layout = (props: { children: React.ReactNode }) => {
-  return (
-    <>
-      <Navigation />
-      <main>{props.children}</main>
-      {/* <Footer /> */}
-      <SocialWheel socials={socials}/>
-    </>
-  )
-}
+const Template: ComponentStory<typeof SocialWheel> = () => <SocialWheel socials={socials}/>;
+export const Default = Template.bind({});
