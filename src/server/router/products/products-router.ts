@@ -1,10 +1,11 @@
+import Stripe from "stripe"
 import { z } from "zod"
 import { createRouter } from "../context"
 
 const productsRouter = createRouter()
   .query("getAllProducts", {
     resolve: async ({ ctx }) => {
-      const products = await ctx.stripe.products.list()
+      const products = await ctx.stripe.products.list({})
       return products.data
     },
   })
@@ -26,6 +27,21 @@ const productsRouter = createRouter()
       const { name } = input
       const products = await ctx.stripe.products.search({ query: name })
       return products.data
+    },
+  })
+  .query("getProductsWithPagination", {
+    input: z.object({
+      limit: z.number(),
+      ending_before: z.string().optional(),
+    }),
+    resolve: async ({ ctx, input }) => {
+      const { limit, ending_before } = input
+      const products = await ctx.stripe.products.list({
+        limit: 100,
+        expand: ["data.prices"],
+        starting_after: 'prod_MklsqlA7rCNGmN',
+      }).autoPagingToArray({ limit: 20 })
+      return products
     },
   })
   // a mutation that creates 100 products in Stripe with random names and prices between $1 and $100
