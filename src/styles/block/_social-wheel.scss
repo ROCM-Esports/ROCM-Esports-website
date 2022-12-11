@@ -1,0 +1,41 @@
+@use "sass:math";
+@use "../abstracts" as *;
+.show-socials:hover ~ .social-wheel{
+  border: 1px solid black;
+  @include on-circle(7, 13.75rem, 18.75rem ,  1.875rem);
+  
+}
+
+.socials-container{
+  position: relative;
+  max-width: 16.75rem;
+}
+
+.show-socials{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 300;
+}
+
+.social-wheel{
+  position: relative;
+  width:  16.75rem;
+  height: 16.75rem;
+  padding: 0;
+  border-radius: 50%; 
+  list-style: none;
+
+  & > * {
+    // transform: none;
+    position: absolute;
+    visibility: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+}
+
+

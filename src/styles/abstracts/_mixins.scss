@@ -16,3 +16,36 @@
     @error "Unknown breakpoint: #{$breakpoint}";
   }
 }
+
+
+/// @author Kitty Giraudel
+/// @author Ana Tudor
+/// @param {Integer} $item-count - Number of items on the circle
+/// @param {Length} $circle-size - Large circle size
+/// @param {Length} $item-size - Single item size
+@mixin on-circle($item-count, $outer-circle-size, $inner-circle-size, $item-size) {
+
+  
+  & > * {
+    display: block;
+    position: absolute;
+    top:  50%; 
+    left: 50%;
+    width:  $item-size;
+    height: $item-size;
+    margin: -($item-size / 2);
+  
+    $angle: (360 / $item-count);
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transition: all 0.5s ease-in-out;
+        transition-delay: $i * 0.1s;
+        visibility: visible;
+        transform: 
+          rotate($i * $angle * 1deg) 
+          translate($outer-circle-size / 2) 
+          rotate($i * $angle * -1deg);
+      }
+    }
+  }
+}
