@@ -1,4 +1,5 @@
 // components/layout.js
+import Footer from "@components/footer/Footer";
 import SocialWheel from "@components/footer/socialWheel"
 import Navigation from "@components/navigation/Navigation"
 import React from "react"
@@ -48,7 +49,8 @@ export const Layout = (props: { children: React.ReactNode }) => {
       <Navigation />
       <main>{props.children}</main>
       {/* <Footer /> */}
-      <SocialWheel socials={socials}/>
+      {/* <SocialWheel socials={socials} />  */}
+      <Footer />
     </>
   )
 }

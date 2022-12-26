@@ -5,9 +5,20 @@ import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
 import { SessionProvider } from "next-auth/react";
 import type { AppType } from "next/dist/shared/lib/utils";
+import React from "react";
 import superjson from "superjson";
 import type { AppRouter } from "../server/router";
 import "../styles/main.scss";
+
+
+declare module "react" {
+  interface CSSProperties{
+    '--width'?: string | number;
+    '--max-width'?: string | number;
+    '--flow-spacer'?: string | number;
+    
+  }
+}
 
 const MyApp: AppType = ({
   Component,

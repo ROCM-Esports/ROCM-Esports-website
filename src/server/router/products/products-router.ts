@@ -1,77 +1,64 @@
-import Stripe from "stripe"
 import { z } from "zod"
 import { createRouter } from "../context"
 
 const productsRouter = createRouter()
   .query("getAllProducts", {
-    resolve: async ({ ctx }) => {
-      const products = await ctx.stripe.products.list({})
-      return products.data
-    },
-  })
-  .query("getProductById", {
     input: z.object({
-      id: z.string(),
+      limit: z.number().optional().default(10),
     }),
-    resolve: async ({ ctx, input }) => {
-      const { id } = input
-      const product = await ctx.stripe.products.retrieve(id)
-      return product
-    },
-  })
-  .query("getProductsByName", {
-    input: z.object({
-      name: z.string(),
-    }),
-    resolve: async ({ ctx, input }) => {
-      const { name } = input
-      const products = await ctx.stripe.products.search({ query: name })
-      return products.data
-    },
-  })
-  .query("getProductsWithPagination", {
-    input: z.object({
-      limit: z.number(),
-      ending_before: z.string().optional(),
-    }),
-    resolve: async ({ ctx, input }) => {
-      const { limit, ending_before } = input
+    async resolve({input, ctx}) {
+      const { limit } = input
       const products = await ctx.stripe.products.list({
-        limit: 100,
-        expand: ["data.prices"],
-        starting_after: 'prod_MklsqlA7rCNGmN',
-      }).autoPagingToArray({ limit: 20 })
+        limit: limit,
+      })
       return products
-    },
+    }
   })
-  // a mutation that creates 100 products in Stripe with random names and prices between $1 and $100
-  .mutation("createProducts", {
+  .query("getProductPrices", {
     input: z.object({
-      count: z.number().min(1).max(100),
+      productId: z.string(),
     }),
-    resolve: async ({ ctx, input }) => {
-      const { count } = input
-      const products = []
-      for (let i = 0; i < count; i++) {
-        const product = await ctx.stripe.products.create({
-          name: `product ${Math.random().toString(36).substring(2, 15)}`,
-          description: "A product",
-          images: ["https://picsum.photos/200"],
-          active: true,
-          attributes: ["size", "color"],
-          metadata: {
-            color: "blue",
-            size: "large",
-          },
-        })
-        const price = await ctx.stripe.prices.create({
-          product: product.id,
-          unit_amount: Math.floor(Math.random() * 10000),
-          currency: "eur",
-        })
-        products.push({ product, price })
-      }
-      return products
-    },
+    async resolve({ input, ctx }) {
+      const { productId } = input
+      const prices = await ctx.stripe.prices.list({
+        product: productId,
+        active: true,
+
+      })
+      return prices
+    }
   })
+  .query("getProduct", {
+    input: z.object({
+      productId: z.string(),
+    }),
+    async resolve({ input, ctx }) {
+      const { productId } = input
+      const product = await ctx.stripe.products.retrieve(productId)
+      return product
+    }
+  })
+  .query("getAllProductsAndPrices", {
+    input: z.object({
+      limit: z.number().optional().default(10),
+    }),
+    async resolve({ input, ctx }) {
+      const { limit } = input
+      const products = await ctx.stripe.products.list({
+        limit: limit,
+      })
+      const productsWithPrices = await Promise.all(products.data.map(async (product) => {
+        const prices = await ctx.stripe.prices.list({
+          product: product.id,
+          active: true,
+        })
+        return {
+          ...product,
+          prices: prices.data
+        }
+      }))
+      return productsWithPrices
+    }
+  })
+
 export default productsRouter

@@ -1,6 +1,6 @@
 
 interface SocialWheelProps {
-  socials: {
+  socials?: {
     name: string;
     icon: string;
     link: string;
@@ -14,7 +14,7 @@ const SocialWheel: React.FC<SocialWheelProps> = ({ socials }) => {
         socials
       </button>
       {/* <section className=""> */}
-        <ul className="social-wheel bg-primary-300">
+        <ul className="social-wheel bg-primary-300" role='list'>
           <li className="social-icon instagram">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 31 30">
               <path fill="#000" d="M21.36 0H8.785C3.322 0 .064 3.255.064 8.715V21.27c0 5.475 3.258 8.73 8.72 8.73h12.562c5.462 0 8.719-3.255 8.719-8.715V8.715C30.08 3.255 26.823 0 21.36 0Zm-6.288 20.82A5.827 5.827 0 0 1 9.25 15c0-3.21 2.61-5.82 5.822-5.82A5.827 5.827 0 0 1 20.895 15c0 3.21-2.611 5.82-5.823 5.82Zm8.885-13.5a1.73 1.73 0 0 1-.315.495c-.15.135-.316.24-.496.315a1.494 1.494 0 0 1-1.635-.315 1.732 1.732 0 0 1-.316-.495 1.492 1.492 0 0 1-.12-.57c0-.195.045-.39.12-.57.075-.195.18-.345.316-.495.345-.345.87-.51 1.35-.405a.905.905 0 0 1 .285.09c.09.03.18.075.27.135.076.045.15.12.226.18.135.15.24.3.315.495.075.18.12.375.12.57 0 .195-.045.39-.12.57Z" />

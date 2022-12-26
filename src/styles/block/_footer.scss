@@ -1,0 +1,24 @@
+@use "../abstracts" as *;
+
+.primary-footer{
+  padding-block: 2.1875rem;
+}
+
+
+.footer-link{
+  color: var(--clr-primary-100);
+  text-decoration: none;
+  font-size: 18px
+}
+
+.footer-list, .footer-nav--list{
+  padding-left: 1.25rem;
+
+  @include mq(small, min) {
+    padding-left: 0;
+  }
+}
+
+.footer-content{
+  display: grid;
+}
