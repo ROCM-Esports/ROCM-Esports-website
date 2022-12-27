@@ -44,6 +44,8 @@ body {
 /* Set core body defaults */
 body {
   text-rendering: optimizeSpeed;
+  font-family: var(--ff);
+  // font-weight: 600;
 }
 
 
