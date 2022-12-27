@@ -4,8 +4,14 @@
   border: 1px solid black;
 
   @include on-circle(7, 13.75rem, 18.75rem ,  1.875rem);
-  
+  $hover: 1;
+
+
 }
+.social-wheel:focus-visible{
+  @include on-circle(7, 13.75rem, 18.75rem ,  1.875rem);
+}
+
 
 .socials-container{
   position: relative;
@@ -28,6 +34,12 @@
     transform: translate(-50%, -50%);
     z-index: 300;
     display: block;
+    text-decoration: underline;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--clr-primary-100);
+    background: none;
+    border: none;
   }
 }
 
@@ -57,7 +69,6 @@
     border-radius: 50%; 
     list-style: none;
     & > * {
-      // transform: none;
       position: absolute;
       visibility: hidden;
       top: 50%;

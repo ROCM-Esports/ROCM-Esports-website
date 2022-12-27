@@ -2,6 +2,10 @@
 
 .primary-footer{
   padding-block: 2.1875rem;
+
+  .logo{
+    max-width: 400px;
+  }
 }
 
 
@@ -12,13 +16,74 @@
 }
 
 .footer-list, .footer-nav--list{
-  padding-left: 1.25rem;
+  // padding-left: 1.25rem;
 
-  @include mq(small, min) {
+  @include mq(medium, min) {
     padding-left: 0;
   }
+
 }
 
 .footer-content{
   display: grid;
+  h3{
+    font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  h1{
+    font-size: clamp(1.875rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    place-self: center;
+  }
+  grid-auto-columns: 1fr;
+  grid-template-areas: 
+  "footer-title"
+  "footer-nav"
+  "terms"
+  "contact"
+  "socials"
+  
+  ;
+  
+  @include mq(medium, min) {
+    grid-template-areas:
+    "footer-title footer-title"
+    "footer-nav socials"
+    "contact socials"
+    "terms socials";
+
+  }
+  
+  @include mq(large, min) {
+    place-items: start center;
+    grid-template-areas: 
+    "socials footer-title footer-title footer-title" 
+    "socials footer-nav contact terms ";
+    ;
+    // grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  
+}
+
+.footer-navigation{
+  grid-area: footer-nav;
+}
+
+.contact-and-information{
+  grid-area: contact;
+}
+
+.terms-and-conditions{
+  grid-area: terms;
+}
+
+.footer-socials{
+  grid-area: socials;
+  margin-top: 0;
+}
+
+.footer-heading{
+  grid-area: footer-title;
 }

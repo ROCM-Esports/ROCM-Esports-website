@@ -9,10 +9,10 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="primary-footer | bg-primary-900">
+      <footer className="primary-footer | bg-primary-900 fw-500">
         <div className="container" style={{"--width": '90%'}}>
-          <div className="footer-content grid">
-            <h1 className="text-primary-100 text-center">ROCM Esports</h1>
+          <div className="footer-content | grid flow | " style={{"--flow-spacer": "30px"}}>
+            <h1 className="footer-heading | text-primary-100 text-center">ROCM Esports</h1>
             <div className="footer-socials">
               <div className="logo">
                 <img src="/assets/logo.png" alt="" />
