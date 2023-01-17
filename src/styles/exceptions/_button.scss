@@ -1,33 +1,45 @@
 @use '../abstracts/' as *;
 
 .btn {
-  border-radius: 0.4em;
-  padding: 0.5em 1em;
-  font-size: 1rem;
-  font-weight: 700;
-  text-transform: capitalize;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  user-select: none;
+  padding: .5em 3.5em;
+  position: relative;
+  --btn-raise: 1.3rem;
+  clip-path: polygon(var(--btn-raise) 0%,
+      calc(100% - var(--btn-raise)) 0%,
+      100% 50%, calc(100% - var(--btn-raise)) 100%,
+      var(--btn-raise) 100%, 0 50%
+  );
   border: none;
-}
-[data-button-type="primary"] {
-  background-color: var(--clr-primary-300);
-  color: var(--clr-primary-100);
-}
-[data-button-type="secondary"] {
-  background-color: var(--clr-primary-500);
-  color: var(--clr-primary-100);
-}
-[data-button-type="navigation"] {
-  appearance: none;
-  background-color: transparent;
-  display: none;
-  @include mq(medium, max) {
-    z-index: 9999;
-    display: block;
-    width: 100%;
-    text-align: left;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+  .top {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: green;
+    transition: scale 0.2s ease-in-out;
   }
+}
+
+[data-button-type="primary"] {
+  background-color: var(--clr-primary-900);
+  color: white;
+  &:hover {
+    background-color: var(--clr-primary-500);
+    color: var(--clr-primary-900);
+
+    .top {
+      scale: 9;
+    }
+  }
+
 }
 
 [data-button-type="account-dropdown"] {

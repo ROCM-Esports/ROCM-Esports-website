@@ -1,6 +1,5 @@
 // create a button component
 import React from "react"
-import For from "./utils/For"
 
 interface ButtonProps {
   children?: React.ReactNode
@@ -27,7 +26,11 @@ export const Button = ({
         onClick={onClick}
         style={{ backgroundColor, color }}
       >
-        {children ?? text}
+              {children ?? text}
+              <span className="top"></span>
+              <span className="bottom"></span>
+              <span className="left"></span>
+              <span className="right"></span>
       </button>
     </>
   )
