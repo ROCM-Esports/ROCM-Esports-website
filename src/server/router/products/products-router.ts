@@ -19,12 +19,17 @@ const productsRouter = createRouter()
       productId: z.string(),
     }),
     async resolve({ input, ctx }) {
+      // get the product ID from the input
       const { productId } = input
+
+      // call the Stripe API to get the prices for this product
       const prices = await ctx.stripe.prices.list({
         product: productId,
         active: true,
 
       })
+
+      // return the prices to the client
       return prices
     }
   })
