@@ -18,4 +18,12 @@ export const exampleRouter = createTRPCRouter({
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
+
+  test: publicProcedure.query(async ({ctx}) => {
+    const allUsers = await ctx.prisma.user.findMany();
+    if (!allUsers) {
+      throw new Error("No users found");
+    }
+    return allUsers;
+  })
 });
