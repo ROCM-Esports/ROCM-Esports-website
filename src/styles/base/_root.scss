@@ -1,0 +1,17 @@
+@use "../abstracts" as *;
+
+:root {
+  // loop over color type eg primary, secondary, tertiary etc and then loop over the color values eg 100, 300, 500, 700, 900 and make custom properties for each color
+  @each $type, $colors in $colors {
+    @each $value, $color in $colors {
+      --clr-#{$type}-#{$value}: #{$color};
+    }
+  }
+
+
+  --ff-primary: "Raleway", sans-serif;
+  --ff-secondary: "BebasNeue", sans-serif;
+
+  --line-height-body: 1.5;
+  --line-height-heading: 1.1;
+}
