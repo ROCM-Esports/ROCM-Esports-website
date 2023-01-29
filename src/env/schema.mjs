@@ -23,6 +23,7 @@ export const serverSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   STRIPE_PUBLIC_KEY: z.string(),
   STRIPE_SECRET_KEY: z.string(),
+  STRIPE_WEBHOOK_SECRET: z.string(),
 });
 
 /**
@@ -39,6 +40,7 @@ export const serverEnv = {
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+  STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
 };
 
 /**

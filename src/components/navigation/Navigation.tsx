@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react"
 import { FaAngleDoubleRight } from "react-icons/fa";
 import logo from "@assets/logo.png"
+import AccountDropdown from "./AccountDropdown";
 // import AccountDropdown from './AccountDropdown'
 const Navigation: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -47,13 +48,8 @@ const Navigation: React.FC = () => {
             </Link>
           </li>
         </ul>
-        <div className="profile-dropdown" >
-          <button aria-haspopup="true">My Profile <i className="arrow down"></i></button>
-          <ul className="dropdown-menu">
-            <li><Link href="/sign-in">Sign In</Link></li>
-            <li><Link href="/sign-out">Sign Out</Link></li>
-          </ul>
-        </div>
+        <AccountDropdown />
+
       </nav>
     </div>
   );

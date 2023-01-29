@@ -9,5 +9,4 @@ declare global{
 export const stripe = global.stripe || new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
   typescript: true,
-  port: 3000,
 });
