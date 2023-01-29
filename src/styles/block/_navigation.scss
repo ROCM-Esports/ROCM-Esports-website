@@ -3,15 +3,22 @@
 .primary-navigation{
   display: flex;
   justify-content: space-between;
+  transition: translate 0.3s ease-in-out;
   @include mq(medium, max){
     flex-direction: column;
     position: fixed;
-    inset: 0 50% 0 0;
+    inset: 0 30% 0 0;
     justify-content: unset;
     background-color: green;
     translate: -93% 0;
     &[data-open="true"]{
      translate: 0 0; 
+    }
+  }
+
+  &[data-open="true"]{
+    .nav-toggle{
+      rotate: 180deg;
     }
   }
 
@@ -21,9 +28,9 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-
   @include mq(medium, max){
     display: block;
+    padding: min(10vh, 5rem) 2em;
      
   }
 }
@@ -36,13 +43,7 @@
 
 
 .navigation-wrapper{
-  // width: min(90%, 1400px);
-  // margin: 0 auto;
+  width: min(90%, 1400px);
+  margin: 0 auto;
   position: relative;
-}
-
-.nav-toggle{
-  position: absolute;
-  inset: 0 0 0 93%;
-
 }
