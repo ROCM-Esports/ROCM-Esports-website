@@ -1,13 +1,12 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
-
 const databaseRouter = createTRPCRouter({
   createProduct: publicProcedure
     .input(z.object({
       id: z.string(),
       name: z.string(),
-      description: z.string(),
+      description: z.string().optional(),
       metadata: z.object({}),
     }))
     .mutation(async ({ ctx, input }) => {
@@ -25,3 +24,5 @@ const databaseRouter = createTRPCRouter({
         
 
 });
+
+export default databaseRouter;
