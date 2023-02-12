@@ -33,26 +33,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     res.json({ received: true });
+    const eventObject = event.data;
+
     switch (event.type) {
-      case "checkout.session.completed":
-        const session = event.data.object;
-        break;
       case "product.created":
-        const { id, name, description, metadata } = event.data.object;
-        const createProduct = api.db.createProduct.useMutation().mutate({
-          id,
-          name,
-          description,
-          metadata,
-        });
-        break;
       case "product.updated":
-        const { id, name, description, metadata } = event.data.object;
-        const updateProduct = api.db.updateProduct.useMutation().mutate({
-          id,
-          name,
-          description,
-          metadata,
+        const product = eventObject.object as {
+          id: string;
+          name: string;
+          description: string;
+          metadata: Record<string, string>;
+        };
+        const mutation = api.db[event.type === "product.created" ? "createProduct" : "updateProduct"].useMutation();
+        mutation.mutate({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          metadata: product.metadata,
         });
         break;
       default:
