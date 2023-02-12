@@ -68,7 +68,7 @@ model VerificationToken {
 model Product {
   id          String   @unique
   name        String   @db.VarChar(255)
-  description String   @db.Text
+  description String?   @db.Text
   images      Image[]
   price       Price[]
   metadata    Json?

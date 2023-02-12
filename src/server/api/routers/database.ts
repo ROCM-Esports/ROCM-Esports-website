@@ -6,7 +6,7 @@ const databaseRouter = createTRPCRouter({
     .input(z.object({
       id: z.string(),
       name: z.string(),
-      description: z.string().optional(),
+      description: z.string().nullable(),
       metadata: z.object({}),
     }))
     .mutation(async ({ ctx, input }) => {
@@ -21,6 +21,45 @@ const databaseRouter = createTRPCRouter({
       });
       return product;
     }),
+  
+  updateProduct: publicProcedure
+    .input(z.object({
+      id: z.string(),
+      name: z.string(),
+      description: z.string().nullable(),
+      metadata: z.object({}),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { id, name, description, metadata } = input;
+      const product = await ctx.prisma.product.update({
+        where: {
+          id,
+        },
+        data: {
+          name,
+          description,
+          metadata,
+        }
+      });
+      return product;
+    }
+  ),
+
+  deleteProduct: publicProcedure
+    .input(z.object({
+      id: z.string(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { id } = input;
+      const product = await ctx.prisma.product.delete({
+        where: {
+          id,
+        },
+      });
+      return product;
+    }
+  ),
+  
         
 
 });

@@ -38,7 +38,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const session = event.data.object;
         break;
       case "product.created":
-        const {id, name, description, metadata} = event.data.object;
+        const { id, name, description, metadata } = event.data.object;
         const createProduct = api.db.createProduct.useMutation().mutate({
           id,
           name,
@@ -46,6 +46,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           metadata,
         });
         break;
+      case "product.updated":
+        const { id, name, description, metadata } = event.data.object;
+        const updateProduct = api.db.updateProduct.useMutation().mutate({
+          
     
       default:
         break;

@@ -1,56 +1,33 @@
 @use '../abstracts/' as *;
 
-.btn {
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
+.btn{
+  // base button styles
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
   cursor: pointer;
-  user-select: none;
-  padding: .5em 3.5em;
-  position: relative;
-  --btn-raise: 1.3rem;
-  clip-path: polygon(var(--btn-raise) 0%,
-      calc(100% - var(--btn-raise)) 0%,
-      100% 50%, calc(100% - var(--btn-raise)) 100%,
-      var(--btn-raise) 100%, 0 50%
-  );
-  border: none;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  background-color: aqua;
+  color: black;
+  padding: 1rem 2rem;
+  border-radius: 1.25rem;
+  clip-path:
+    polygon(25% 20%, 75% 20%, 100% 50%, 75% 80%, 25% 80%, 0% 50%);
 
-  .top {
-    position: absolute;
-    top: 1px;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background-color: green;
-    transition: scale 0.2s ease-in-out;
-  }
-}
+  &[data-button-type="primary"]{
+    &::after{
 
-[data-button-type="primary"] {
-  background-color: var(--clr-primary-900);
-  color: white;
-  &:hover {
-    background-color: var(--clr-primary-500);
-    color: var(--clr-primary-900);
+    }
 
-    .top {
-      scale: 9;
+    &::before{
+
     }
   }
-
 }
 
-[data-button-type="account-dropdown"] {
-  padding: 0.25em 1.25em;
-  font-weight: 400;
-  background-color: black;
-  color: white;
 
-  &:hover {
-    // invert the colors
-    background-color: white;
-    color: black;
-  }
+
+.outline-container{
+  outline: 3px solid yellow;
+  position: relative;
 }
