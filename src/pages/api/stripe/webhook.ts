@@ -49,8 +49,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       case "product.updated":
         const { id, name, description, metadata } = event.data.object;
         const updateProduct = api.db.updateProduct.useMutation().mutate({
-          
-    
+          id,
+          name,
+          description,
+          metadata,
+        });
+        break;
       default:
         break;
     }
