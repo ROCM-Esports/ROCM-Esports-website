@@ -59,7 +59,20 @@ const databaseRouter = createTRPCRouter({
       return product;
     }
   ),
-  
+  getProduct: publicProcedure
+    .input(z.object({
+      id: z.string(),
+    }))
+    .query(async ({ ctx, input }) => {
+      const { id } = input;
+      const product = await ctx.prisma.product.findUnique({
+        where: {
+          id,
+        },
+      });
+      return product;
+    }
+  ),
         
 
 });
