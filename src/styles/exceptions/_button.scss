@@ -1,0 +1,33 @@
+@use '../abstracts/' as *;
+
+.btn{
+  // base button styles
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+  background-color: aqua;
+  color: black;
+  padding: 1rem 2rem;
+  border-radius: 1.25rem;
+  clip-path:
+    polygon(25% 20%, 75% 20%, 100% 50%, 75% 80%, 25% 80%, 0% 50%);
+
+  &[data-button-type="primary"]{
+    &::after{
+
+    }
+
+    &::before{
+
+    }
+  }
+}
+
+
+
+.outline-container{
+  outline: 3px solid yellow;
+  position: relative;
+}

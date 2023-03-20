@@ -1,0 +1,25 @@
+$breakpoints: (
+  small: 26.25em,
+  medium: 40em,
+  large: 64em,
+);
+
+$colors: (
+  primary: (
+    100: hsl(0 100% 100% / 1),
+    300: hsl(210, 77%, 81%),
+    500: hsl(4, 88%, 58%),
+    700: hsl(221, 48%, 36%),
+    900: hsl(0 0% 0% / 1),
+  ),
+);
+
+
+$font-sizes: (
+  400: clamp(1rem, 1rem + .75vw, 1.5rem),
+  500: clamp(1.875rem, 1rem + 1vw, 2.25rem),
+  600: clamp(2.25rem, 1rem + 1.3vw, 2.625rem),
+  700: clamp(2.75rem, 1rem + 1.6vw, 3.375rem),
+  800: clamp(3.25rem, 1rem + 1.8vw, 4.5rem),
+  900: clamp(3.75rem, 1rem + 2vw, 5.9375rem),
+)

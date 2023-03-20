@@ -1,0 +1,16 @@
+@use "../abstracts" as *;
+
+:root {
+  @each $type, $colors in $colors {
+    @each $value, $color in $colors {
+      --clr-#{$type}-#{$value}: #{$color};
+    }
+  }
+
+
+  --ff-primary: "Raleway", sans-serif;
+  --ff-secondary: "BebasNeue", sans-serif;
+
+  --line-height-body: 1.5;
+  --line-height-heading: 1.1;
+}
