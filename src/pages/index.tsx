@@ -6,10 +6,16 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
 import Navigation from "../components/navigation/Navigation";
-import { Button } from "@/components/Button";
+import { Cart } from "@/components/cart/Cart";
+import { useCart } from "@/hooks/cart";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const cart = useCart()
+  cart.addToCart({ id: 1, name: "test", price: 10, quantity: 1 })
+
+  console.log(cart);
+  
 
   return (
     <>
@@ -55,7 +61,7 @@ const Home: NextPage = () => {
             <AuthShowcase />
           </div>
         </div>
-        <Button onClick={() => console.log("clicked")}>Click me</Button>
+        <Cart />
       </main>
     </>
   );

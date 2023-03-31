@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
 
 import "../styles/main.scss";
+import { CartProvider } from "@/components/cart/Cart";
 
 // a function that gets all of the css custom properties from the root element
 // and adds them to the CSSProperties interface
@@ -25,7 +26,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
     </SessionProvider>
   );
 };

@@ -66,14 +66,15 @@ model VerificationToken {
 }
 
 model Product {
-  id          String   @unique
-  name        String   @db.VarChar(255)
-  description String?   @db.Text
+  id          String     @unique
+  name        String     @db.VarChar(255)
+  description String?    @db.Text
   images      Image[]
   price       Price[]
   metadata    Json?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  CartItem    CartItem[]
 }
 
 model Price {
@@ -91,4 +92,20 @@ model Image {
   url       String
   product   Product @relation(fields: [productId], references: [id])
   productId String
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    String
 }
